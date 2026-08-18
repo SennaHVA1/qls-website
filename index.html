@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Werken bij QLS | Autochauffeur in de Amsterdamse haven</title>
+<meta name="description" content="QLS laadt en lost autoschepen op de Waterland Terminal in Amsterdam Westpoort. Wij zoeken chauffeurs met rijbewijs B. Solliciteer in 5 minuten.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#06182C;
+  --kade:#0B2743;
+  --blue:#0B4EA2;
+  --blue-dark:#093F83;
+  --sky:#7FBAFF;
+  --mist:#EAF1F9;
+  --line:#D9E5F2;
+  --ink:#06182C;
+  --body:#2A425C;
+  --muted:#5B7190;
+  color-scheme:light only;
+}
+/* vormregels: knoppen = pill, kaarten = 20px, invoervelden = 12px */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Sora',system-ui,sans-serif;background:#FFFFFF;color:var(--body);font-weight:300;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+h1,h2,h3{font-weight:800;letter-spacing:-.035em;line-height:1.06;color:var(--ink)}
+h2{font-size:clamp(30px,4.8vw,48px);margin-bottom:20px}
+h3{font-size:20px;letter-spacing:-.02em;margin-bottom:8px}
+.lead{font-size:clamp(16px,2.1vw,19px);max-width:60ch}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-size:15px;font-weight:600;letter-spacing:-.01em;text-decoration:none;border:0;border-radius:999px;padding:16px 30px;transition:transform .18s ease,background .2s ease,box-shadow .2s ease,color .2s ease;white-space:nowrap}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn-blue{background:var(--blue);color:#FFF;box-shadow:0 10px 28px rgba(11,78,162,.28)}
+.btn-blue:hover{background:var(--blue-dark)}
+.btn-white{background:#FFF;color:var(--navy)}
+.btn-white:hover{background:var(--mist)}
+.btn-outline{background:transparent;color:#FFF;border:1.5px solid rgba(255,255,255,.45)}
+.btn-outline:hover{border-color:#FFF;background:rgba(255,255,255,.08)}
+.btn-sm{padding:12px 22px;font-size:14px}
+.btn .arr{transition:transform .2s ease}
+.btn:hover .arr{transform:translateX(4px)}
+
+/* ---------- NAV ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .35s ease,box-shadow .35s ease}
+.nav .bar{height:76px;display:flex;align-items:center;justify-content:space-between}
+.nav.solid{background:rgba(255,255,255,.94);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line),0 12px 32px rgba(6,24,44,.06)}
+.logo{display:flex;align-items:baseline;gap:2px;text-decoration:none}
+.logo b{font-size:24px;font-weight:800;letter-spacing:-.04em;color:#FFF;transition:color .3s}
+.logo i{font-style:normal;width:9px;height:9px;border-radius:50%;background:var(--sky);align-self:flex-end;margin-bottom:6px;margin-left:4px;transition:background .3s}
+.nav.solid .logo b{color:var(--navy)}
+.nav.solid .logo i{background:var(--blue)}
+.nav-links{display:flex;align-items:center;gap:34px;list-style:none}
+.nav-links a{font-size:14.5px;font-weight:500;color:rgba(255,255,255,.85);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:#FFF}
+.nav.solid .nav-links a{color:var(--body)}
+.nav.solid .nav-links a:hover{color:var(--navy)}
+.nav .btn-sm{background:#FFF;color:var(--navy)}
+.nav .btn-sm:hover{background:var(--mist)}
+.nav.solid .btn-sm{background:var(--blue);color:#FFF}
+.nav.solid .btn-sm:hover{background:var(--blue-dark)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;position:relative}
+.burger span{position:absolute;left:10px;right:10px;height:2px;border-radius:2px;background:#FFF;transition:transform .25s ease,opacity .2s ease,background .3s ease}
+.nav.solid .burger span{background:var(--navy)}
+.burger span:nth-child(1){top:16px}
+.burger span:nth-child(2){top:22px}
+.burger span:nth-child(3){top:28px}
+.burger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;inset:76px 16px auto 16px;z-index:49;background:#FFF;border-radius:20px;box-shadow:0 24px 64px rgba(6,24,44,.22);padding:14px 22px 24px}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:block;padding:15px 4px;color:var(--ink);text-decoration:none;font-size:16px;font-weight:500;border-bottom:1px solid var(--line)}
+.mobile-menu .btn{margin-top:18px;width:100%}
+
+/* ---------- HERO ---------- */
+.hero{background:var(--navy);position:relative;overflow:hidden;padding:150px 0 170px}
+.hero .glow{position:absolute;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(11,78,162,.35) 0%,transparent 62%);top:-320px;right:-220px;pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:70px;align-items:center;position:relative}
+.hero h1{color:#FFF;font-size:clamp(40px,6.2vw,72px);letter-spacing:-.045em;margin-bottom:24px}
+.hero h1 span{color:var(--sky)}
+.hero p{color:#C9DCEF;font-size:clamp(15.5px,2vw,18.5px);max-width:44ch;margin-bottom:38px}
+.hero .cta-row{display:flex;flex-wrap:wrap;gap:14px}
+.hero-visual{position:relative}
+.hero-visual .frame{position:relative;border-radius:24px;overflow:hidden;transform:rotate(1.6deg);box-shadow:0 32px 80px rgba(0,0,0,.42)}
+.hero-visual .frame img{aspect-ratio:4/3.4;object-fit:cover;width:100%}
+.hero-visual::before{content:"";position:absolute;inset:26px -22px -26px 30px;background:var(--blue);border-radius:24px;transform:rotate(-1.4deg);opacity:.9}
+.hero-visual::after{content:"";position:absolute;width:120px;height:120px;border-radius:50%;border:2px solid rgba(127,186,255,.35);top:-38px;left:-30px}
+
+/* ---------- STATS (overlappen hero) ---------- */
+.stats{position:relative;z-index:5;margin-top:-92px}
+.stats .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{background:#FFF;border-radius:20px;padding:28px 26px 24px;box-shadow:0 18px 48px rgba(6,24,44,.10)}
+.stat b{display:block;font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-.03em;color:var(--navy);margin-bottom:4px}
+.stat b em{font-style:normal;color:var(--blue)}
+.stat span{font-size:13px;color:var(--muted);line-height:1.5;display:block}
+
+/* ---------- MERKEN CAROUSEL ---------- */
+.brands{padding:100px 0 90px;overflow:hidden}
+.brands .intro{text-align:center;max-width:600px;margin:0 auto 44px}
+.brands h2{font-size:clamp(26px,3.6vw,38px)}
+.brands .intro p{font-size:15.5px;color:var(--muted)}
+.mask{position:relative;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.track{display:flex;width:max-content;animation:roll 34s linear infinite}
+.mask:hover .track{animation-play-state:paused}
+@keyframes roll{to{transform:translateX(-50%)}}
+.tile{flex:0 0 176px;height:118px;margin-right:18px;background:#FFF;border:1px solid var(--line);border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.tile:hover{transform:translateY(-6px);box-shadow:0 20px 44px rgba(6,24,44,.12);border-color:transparent}
+.tile img{height:38px;width:auto}
+.tile b{font-size:12.5px;font-weight:600;color:var(--body);letter-spacing:.02em}
+.tile .wordmark{font-size:16px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--body)}
+
+/* ---------- HET WERK ---------- */
+.werk{padding:40px 0 110px}
+.werk .shell{background:var(--mist);border-radius:32px;padding:clamp(36px,5vw,72px)}
+.werk-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(32px,4vw,64px);align-items:center}
+.werk .photo{border-radius:24px;overflow:hidden;box-shadow:0 24px 60px rgba(6,24,44,.16)}
+.werk .photo img{aspect-ratio:4/4.6;object-fit:cover;width:100%}
+.taak{display:flex;gap:22px;padding:22px 0;border-bottom:1px solid rgba(11,78,162,.14);align-items:flex-start}
+.taak:last-child{border-bottom:0}
+.taak .num{flex:0 0 46px;width:46px;height:46px;border-radius:14px;background:#FFF;color:var(--blue);font-size:19px;font-weight:800;display:grid;place-items:center;box-shadow:0 6px 16px rgba(6,24,44,.08)}
+.taak b{display:block;font-size:16.5px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.taak span{font-size:14.5px;color:var(--body)}
+
+/* ---------- EISEN (interactief) ---------- */
+.eisen{padding:40px 0 110px}
+.eisen-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(36px,5vw,80px);align-items:start}
+.eisen .sticky{position:sticky;top:110px}
+.eisen .score{display:inline-flex;align-items:center;gap:12px;background:var(--mist);border-radius:999px;padding:10px 20px 10px 12px;margin-bottom:26px}
+.eisen .score .ring{width:38px;height:38px;border-radius:50%;background:conic-gradient(var(--blue) calc(var(--p,0)*1%),#CFE0F2 0);display:grid;place-items:center;transition:background .3s}
+.eisen .score .ring i{width:28px;height:28px;border-radius:50%;background:var(--mist);display:grid;place-items:center;font-style:normal;font-size:11.5px;font-weight:700;color:var(--navy)}
+.eisen .score span{font-size:13.5px;font-weight:600;color:var(--navy)}
+.req{display:flex;gap:18px;align-items:flex-start;padding:20px 22px;border:1.5px solid var(--line);border-radius:20px;margin-bottom:12px;cursor:pointer;transition:border-color .2s ease,background .2s ease,transform .15s ease;user-select:none}
+.req:hover{border-color:var(--blue)}
+.req input{position:absolute;opacity:0;pointer-events:none}
+.req .box{flex:0 0 26px;height:26px;border-radius:9px;border:2px solid #B9CCDF;margin-top:2px;display:grid;place-items:center;transition:background .2s,border-color .2s}
+.req .box svg{opacity:0;transform:scale(.5);transition:opacity .2s,transform .25s cubic-bezier(.34,1.56,.64,1)}
+.req.checked{border-color:var(--blue);background:#F4F9FE}
+.req.checked .box{background:var(--blue);border-color:var(--blue)}
+.req.checked .box svg{opacity:1;transform:scale(1)}
+.req b{display:block;font-size:15.5px;font-weight:700;color:var(--ink)}
+.req span{font-size:13.5px;color:var(--muted)}
+.eisen .extra{margin-top:22px;background:var(--navy);border-radius:20px;padding:24px 26px;color:#C9DCEF;font-size:14px}
+.eisen .extra b{color:#FFF;font-weight:600}
+
+/* ---------- VACATURES ---------- */
+.vac{background:var(--navy);padding:110px 0;position:relative;overflow:hidden}
+.vac .glow{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(11,78,162,.4) 0%,transparent 60%);bottom:-300px;left:-200px;pointer-events:none}
+.vac h2{color:#FFF}
+.vac .lead{color:#B9CFE4}
+.vac-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin-top:48px;position:relative}
+.vcard{background:#FFF;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s ease}
+.vcard:hover{transform:translateY(-5px)}
+.vcard.feat{grid-row:span 2}
+.vcard.feat .vimg{height:220px;overflow:hidden}
+.vcard.feat .vimg img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.vcard.feat:hover .vimg img{transform:scale(1.05)}
+.vcard .inner{padding:28px 30px 30px;display:flex;flex-direction:column;flex:1}
+.vcard .chip{align-self:flex-start;font-size:11.5px;font-weight:700;letter-spacing:.05em;color:var(--blue);background:var(--mist);border-radius:999px;padding:6px 14px;margin-bottom:14px}
+.vcard h3{font-size:clamp(20px,2.4vw,26px)}
+.vcard p{font-size:14.5px;margin-bottom:18px}
+.vcard ul{list-style:none;margin-bottom:24px}
+.vcard ul li{position:relative;padding-left:24px;margin-bottom:8px;font-size:14px;color:var(--body)}
+.vcard ul li::before{content:"";position:absolute;left:0;top:7px;width:14px;height:14px;border-radius:50%;background:var(--mist)}
+.vcard ul li::after{content:"";position:absolute;left:4px;top:11px;width:6px;height:6px;border-radius:50%;background:var(--blue)}
+.vcard .btn{margin-top:auto;align-self:flex-start}
+
+/* ---------- HOE ---------- */
+.hoe{padding:110px 0 60px}
+.hoe .kop{max-width:620px;margin-bottom:56px}
+.hoe-rail{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:stap}
+.hstep{position:relative;background:var(--mist);border-radius:20px;padding:70px 26px 28px;counter-increment:stap}
+.hstep::before{content:counter(stap,decimal-leading-zero);position:absolute;top:22px;left:24px;font-size:15px;font-weight:800;color:#FFF;background:var(--blue);width:38px;height:38px;border-radius:50%;display:grid;place-items:center}
+.hstep:nth-child(even){background:#FFF;border:1.5px solid var(--line)}
+.hstep b{display:block;font-size:16.5px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.hstep p{font-size:13.5px;color:var(--body)}
+.hoe .onder{margin-top:40px;display:flex;flex-wrap:wrap;align-items:center;gap:20px}
+.hoe .onder small{font-size:13.5px;color:var(--muted)}
+
+/* ---------- OVER ---------- */
+.over{padding:60px 0 110px}
+.over-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,5vw,76px);align-items:center}
+.over .photo{position:relative}
+.over .photo img{border-radius:24px;aspect-ratio:4/3;object-fit:cover;box-shadow:0 24px 60px rgba(6,24,44,.16)}
+.over .badge{position:absolute;right:-18px;bottom:-24px;background:var(--blue);color:#FFF;border-radius:20px;padding:20px 26px;box-shadow:0 16px 40px rgba(11,78,162,.4)}
+.over .badge b{display:block;font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.over .badge span{font-size:12px;opacity:.85}
+.over p+p{margin-top:14px;font-size:15px}
+
+/* ---------- KLANTEN ---------- */
+.klanten{padding:0 0 110px}
+.klanten .banner{background:var(--blue);border-radius:32px;padding:clamp(36px,5vw,60px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:28px;position:relative;overflow:hidden}
+.klanten .banner::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:rgba(255,255,255,.07);right:-120px;top:-180px}
+.klanten h3{color:#FFF;font-size:clamp(22px,3vw,30px);margin-bottom:8px}
+.klanten p{color:#D6E5F4;font-size:15px;max-width:52ch}
+.klanten .btn{position:relative}
+
+/* ---------- CONTACT ---------- */
+.contact{padding:0 0 110px}
+.contact-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(36px,5vw,76px);align-items:start}
+.c-list{margin-top:26px}
+.c-row{display:flex;gap:18px;align-items:flex-start;padding:18px 0;border-bottom:1px solid var(--line)}
+.c-row:last-child{border-bottom:0}
+.c-row .ic{flex:0 0 44px;height:44px;border-radius:14px;background:var(--mist);display:grid;place-items:center}
+.c-row b{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:2px}
+.c-row .v{font-size:15.5px;color:var(--ink);font-weight:500}
+.c-row .v a{color:var(--blue);text-decoration:none;font-weight:600}
+.c-row .v a:hover{text-decoration:underline}
+.c-row .v small{display:block;font-size:13px;color:var(--muted);font-weight:300}
+.contact-card{background:var(--navy);border-radius:28px;padding:40px 38px 44px;position:relative;overflow:hidden}
+.contact-card::before{content:"";position:absolute;width:340px;height:340px;border-radius:50%;background:rgba(11,78,162,.5);filter:blur(60px);right:-100px;bottom:-140px}
+.contact-card > *{position:relative}
+.contact-card h3{color:#FFF;font-size:clamp(22px,2.6vw,28px);margin-bottom:12px}
+.contact-card p{color:#C9DCEF;font-size:15px;margin-bottom:30px}
+
+/* ---------- FOOTER ---------- */
+footer{background:var(--navy);padding:48px 0;color:#B9CFE4}
+footer .fgrid{display:flex;flex-wrap:wrap;gap:30px;justify-content:space-between;align-items:center}
+footer p{font-size:13px}
+footer b{color:#FFF;font-weight:600}
+footer a{color:var(--sky);text-decoration:none}
+footer a:hover{text-decoration:underline}
+footer .flogo{font-size:20px;font-weight:800;color:#FFF;letter-spacing:-.03em}
+footer .flogo i{font-style:normal;display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--sky);margin-left:3px}
+
+/* ---------- WIZARD ---------- */
+.wizard-overlay{position:fixed;inset:0;z-index:100;background:rgba(6,24,44,.72);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px}
+.wizard-overlay.open{display:flex}
+.wizard{background:#FFF;border-radius:24px;width:100%;max-width:640px;max-height:92dvh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 48px 140px rgba(0,0,0,.5)}
+.wz-top{display:flex;align-items:center;justify-content:space-between;padding:20px 26px;border-bottom:1px solid var(--line)}
+.wz-top .t{display:flex;align-items:center;gap:10px}
+.wz-top .t i{font-style:normal;width:10px;height:10px;border-radius:50%;background:var(--blue)}
+.wz-top b{font-size:14.5px;font-weight:700;color:var(--ink)}
+.wz-close{background:var(--mist);border:0;width:38px;height:38px;border-radius:50%;font-size:20px;line-height:1;color:var(--body);transition:background .2s,color .2s}
+.wz-close:hover{background:var(--line);color:var(--ink)}
+.wz-progress{height:5px;background:var(--mist)}
+.wz-progress i{display:block;height:100%;border-radius:0 99px 99px 0;background:var(--blue);width:0;transition:width .45s cubic-bezier(.16,1,.3,1)}
+.wz-body{padding:36px 36px 40px;overflow-y:auto}
+.wz-step{display:none;animation:wzIn .35s cubic-bezier(.16,1,.3,1)}
+.wz-step.active{display:block}
+@keyframes wzIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.wz-count{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+.wz-body h3{font-size:clamp(21px,3.4vw,27px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:10px}
+.wz-body .sub{font-size:14.5px;color:var(--muted);margin-bottom:26px}
+.wz-choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.wz-choices button{border:1.5px solid var(--line);background:#FFF;border-radius:16px;padding:22px;font-size:17px;font-weight:700;color:var(--ink);transition:border-color .2s,background .2s,transform .15s}
+.wz-choices button:hover{border-color:var(--blue);background:#F4F9FE}
+.wz-choices button:active{transform:scale(.97)}
+.wz-opts{display:grid;gap:10px}
+.wz-opt{display:flex;align-items:center;gap:14px;border:1.5px solid var(--line);border-radius:16px;padding:16px 18px;cursor:pointer;transition:border-color .2s,background .2s;font-size:15px;font-weight:500;color:var(--ink);user-select:none}
+.wz-opt:hover{border-color:var(--blue)}
+.wz-opt input{accent-color:var(--blue);width:19px;height:19px;flex:0 0 19px}
+.wz-opt.checked{border-color:var(--blue);background:#F4F9FE}
+.wz-fields{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.wz-field{display:flex;flex-direction:column;gap:7px}
+.wz-field.full{grid-column:1/-1}
+.wz-field label{font-size:13px;font-weight:600;color:var(--ink)}
+.wz-field input,.wz-field textarea{font-family:inherit;font-size:15px;font-weight:300;color:var(--ink);border:1.5px solid var(--line);border-radius:12px;padding:13px 16px;background:#FFF;transition:border-color .2s,box-shadow .2s;width:100%}
+.wz-field input:focus,.wz-field textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px rgba(11,78,162,.12)}
+.wz-field textarea{resize:vertical;min-height:96px}
+.wz-field .err{display:none;font-size:12.5px;color:#B3261E}
+.wz-field.invalid input{border-color:#B3261E}
+.wz-field.invalid .err{display:block}
+.wz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:30px;gap:12px}
+.wz-back{background:none;border:0;font-size:14px;font-weight:600;color:var(--muted);padding:12px 6px;transition:color .2s}
+.wz-back:hover{color:var(--ink)}
+.wz-stop{background:#FDF2F1;border-radius:16px;padding:20px 22px;margin-bottom:24px}
+.wz-stop b{display:block;font-size:15px;color:#8C231C;margin-bottom:4px;font-weight:700}
+.wz-stop p{font-size:14px;color:#67413D}
+.wz-summary{border:1.5px solid var(--line);border-radius:16px;margin-bottom:8px;overflow:hidden}
+.wz-summary .srow{display:flex;gap:14px;padding:13px 20px;border-bottom:1px solid var(--line);font-size:14px}
+.wz-summary .srow:last-child{border-bottom:0}
+.wz-summary .srow:nth-child(odd){background:#F7FAFD}
+.wz-summary .sk{flex:0 0 130px;color:var(--muted);font-weight:600;font-size:12px;padding-top:2px;text-transform:uppercase;letter-spacing:.08em}
+.wz-summary .sv{color:var(--ink);font-weight:400}
+.wz-done svg{margin-bottom:18px}
+.wz-mailnote{font-size:13px;color:var(--muted);margin-top:14px}
+
+/* ---------- reveal ---------- */
+@media(prefers-reduced-motion:no-preference){
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .75s ease,transform .75s ease}
+  .reveal.in{opacity:1;transform:none}
+  .reveal-d1{transition-delay:.1s}
+  .reveal-d2{transition-delay:.2s}
+}
+@media(prefers-reduced-motion:reduce){
+  .track{animation:none;flex-wrap:wrap;width:auto;justify-content:center;row-gap:14px}
+  .track .tile[aria-hidden]{display:none}
+  .mask{-webkit-mask-image:none;mask-image:none}
+  html{scroll-behavior:auto}
+}
+
+/* ---------- responsive ---------- */
+@media(max-width:1020px){
+  .nav-links{display:none}
+  .nav .btn-sm{display:none}
+  .burger{display:block}
+  .hero{padding:130px 0 150px}
+  .hero-grid{grid-template-columns:1fr;gap:56px}
+  .hero-visual{max-width:520px}
+  .stats .grid{grid-template-columns:1fr 1fr}
+  .werk-grid,.eisen-grid,.over-grid,.contact-grid{grid-template-columns:1fr}
+  .eisen .sticky{position:static}
+  .werk .photo img{aspect-ratio:16/10}
+  .vac-grid{grid-template-columns:1fr}
+  .vcard.feat{grid-row:auto}
+  .hoe-rail{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .wrap{padding:0 20px}
+  .hero{padding:118px 0 140px}
+  .stats .grid{grid-template-columns:1fr 1fr;gap:12px}
+  .stat{padding:20px 18px 18px}
+  .hoe-rail{grid-template-columns:1fr}
+  .wz-fields{grid-template-columns:1fr}
+  .wz-body{padding:28px 22px 32px}
+  .over .badge{right:8px;bottom:-20px;padding:16px 20px}
+  .tile{flex-basis:150px;height:106px;margin-right:14px}
+  .klanten .banner{border-radius:24px}
+  .werk .shell{border-radius:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="wrap bar">
+    <a class="logo" href="#top" aria-label="QLS home"><b>QLS</b><i></i></a>
+    <ul class="nav-links">
+      <li><a href="#werk">Het werk</a></li>
+      <li><a href="#eisen">Voor wie</a></li>
+      <li><a href="#vacatures">Vacatures</a></li>
+      <li><a href="#over">Over QLS</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="btn btn-sm" onclick="openWizard()">Solliciteer direct</button>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#werk" onclick="toggleMenu()">Het werk</a>
+  <a href="#eisen" onclick="toggleMenu()">Voor wie</a>
+  <a href="#vacatures" onclick="toggleMenu()">Vacatures</a>
+  <a href="#over" onclick="toggleMenu()">Over QLS</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+  <button class="btn btn-blue" onclick="toggleMenu();openWizard()">Solliciteer direct</button>
+</div>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <h1>Wij rijden ze het schip <span>op en af.</span></h1>
+        <p>QLS laadt en lost autoschepen vol fabrieksnieuwe auto's in de Amsterdamse haven. Heb jij rijbewijs B? Dan zoeken wij jou.</p>
+        <div class="cta-row">
+          <button class="btn btn-blue" onclick="openWizard()">Solliciteer direct <span class="arr">&rarr;</span></button>
+          <a class="btn btn-outline" href="#vacatures">Bekijk vacatures</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="frame"><img src="veel_autos2.jpg" alt="Autoschip aan de kade met rijen fabrieksnieuwe auto's ervoor" fetchpriority="high"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="wrap">
+    <div class="grid">
+      <div class="stat reveal"><b>2010</b><span>Sinds dat jaar vast gezicht op de Waterland Terminal</span></div>
+      <div class="stat reveal reveal-d1"><b><em>Laagste</em></b><span>Schadepercentage van Europa op autoschepen</span></div>
+      <div class="stat reveal"><b>24<em>/</em>7</b><span>Schepen komen dag en nacht binnen, wij ook</span></div>
+      <div class="stat reveal reveal-d1"><b>100<em>%</em></b><span>Iedereen intern opgeleid, zonder uitzondering</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- MERKEN CAROUSEL -->
+<section class="brands" aria-label="Automerken die wij rijden">
+  <div class="wrap intro reveal">
+    <h2>Dit staat er deze week op de kade</h2>
+    <p>Van elektrisch tot benzine, van compact tot premium: onze chauffeurs rijden ze allemaal.</p>
+  </div>
+  <div class="mask reveal">
+    <div class="track" id="track">
+      <!-- set 1 -->
+      <div class="tile"><img src="https://cdn.simpleicons.org/nissan" alt="Nissan" width="86" height="38" loading="eager"><b>Nissan</b></div>
+      <div class="tile"><img src="https://cdn.simpleicons.org/renault" alt="Renault" width="38" height="38" loading="eager"><b>Renault</b></div>
+      <div class="tile"><img src="https://cdn.simpleicons.org/tesla" alt="Tesla" width="34" height="38" loading="eager"><b>Tesla</b></div>
+      <div class="tile"><img src="https://cdn.simpleicons.org/bmw" alt="BMW" width="38" height="38" loading="eager"><b>BMW</b></div>
+      <div class="tile"><img src="https://cdn.simpleicons.org/volvo" alt="Volvo" width="38" height="38" loading="eager"><b>Volvo</b></div>
+      <div class="tile"><img src="https://cdn.simpleicons.org/polestar" alt="Polestar" width="38" height="38" loading="eager"><b>Polestar</b></div>
+      <div class="tile"><img src="https://cdn.simpleicons.org/peugeot" alt="Peugeot" width="42" height="38" loading="eager"><b>Peugeot</b></div>
+      <div class="tile"><img src="https://cdn.simpleicons.org/infiniti" alt="Infiniti" width="64" height="38" loading="eager"><b>Infiniti</b></div>
+      <!-- set 2 (kopie voor naadloze loop) -->
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/nissan" alt="" width="86" height="38" loading="eager"><b>Nissan</b></div>
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/renault" alt="" width="38" height="38" loading="eager"><b>Renault</b></div>
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/tesla" alt="" width="34" height="38" loading="eager"><b>Tesla</b></div>
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/bmw" alt="" width="38" height="38" loading="eager"><b>BMW</b></div>
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/volvo" alt="" width="38" height="38" loading="eager"><b>Volvo</b></div>
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/polestar" alt="" width="38" height="38" loading="eager"><b>Polestar</b></div>
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/peugeot" alt="" width="42" height="38" loading="eager"><b>Peugeot</b></div>
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/infiniti" alt="" width="64" height="38" loading="eager"><b>Infiniti</b></div>
+      <!-- set 3 -->
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/nissan" alt="" width="86" height="38" loading="eager"><b>Nissan</b></div>
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/renault" alt="" width="38" height="38" loading="eager"><b>Renault</b></div>
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/tesla" alt="" width="34" height="38" loading="eager"><b>Tesla</b></div>
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/bmw" alt="" width="38" height="38" loading="eager"><b>BMW</b></div>
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/volvo" alt="" width="38" height="38" loading="eager"><b>Volvo</b></div>
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/polestar" alt="" width="38" height="38" loading="eager"><b>Polestar</b></div>
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/peugeot" alt="" width="42" height="38" loading="eager"><b>Peugeot</b></div>
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/infiniti" alt="" width="64" height="38" loading="eager"><b>Infiniti</b></div>
+      <!-- set 4 -->
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/nissan" alt="" width="86" height="38" loading="eager"><b>Nissan</b></div>
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/renault" alt="" width="38" height="38" loading="eager"><b>Renault</b></div>
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/tesla" alt="" width="34" height="38" loading="eager"><b>Tesla</b></div>
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/bmw" alt="" width="38" height="38" loading="eager"><b>BMW</b></div>
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/volvo" alt="" width="38" height="38" loading="eager"><b>Volvo</b></div>
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/polestar" alt="" width="38" height="38" loading="eager"><b>Polestar</b></div>
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/peugeot" alt="" width="42" height="38" loading="eager"><b>Peugeot</b></div>
+      <div class="tile" aria-hidden="true"><img src="https://cdn.simpleicons.org/infiniti" alt="" width="64" height="38" loading="eager"><b>Infiniti</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- HET WERK -->
+<section class="werk" id="werk">
+  <div class="wrap">
+    <div class="shell">
+      <div class="werk-grid">
+        <div class="photo reveal">
+          <img src="veel_autos.jpg" alt="Opstelterrein vol nieuwe auto's op de Waterland Terminal, gezien van bovenaf" loading="lazy">
+        </div>
+        <div class="reveal reveal-d1">
+          <h2>Geen kantoor.<br>Wel duizenden auto's.</h2>
+          <p class="lead" style="margin-bottom:10px">Er meldt zich een autoschip in Westpoort en jij rijdt fabrieksnieuwe auto's van het dek naar de kade. In teamverband, in het ritme van de haven.</p>
+          <div>
+            <div class="taak"><span class="num">1</span><div><b>Laden en lossen</b><span>Bij het lossen rijd je nieuwe auto's uit het ruim naar het opstelterrein, bij het laden weer aan boord.</span></div></div>
+            <div class="taak"><span class="num">2</span><div><b>Opstellen en aanpikken</b><span>Auto's strak in de vakken wegzetten en klaarmaken voor transport.</span></div></div>
+            <div class="taak"><span class="num">3</span><div><b>Heftruckwerk</b><span>Voor wie het certificaat heeft: laden, lossen en bevoorraden op de terminal.</span></div></div>
+            <div class="taak"><span class="num">4</span><div><b>Flexibele diensten</b><span>Jij werkt op oproepbasis, wanneer het jou uitkomt en het schip er ligt.</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EISEN -->
+<section class="eisen" id="eisen">
+  <div class="wrap">
+    <div class="eisen-grid">
+      <div class="sticky reveal">
+        <h2>Check jezelf.</h2>
+        <p class="lead" style="margin-bottom:26px">Zes harde eisen, meer niet. Vink af wat voor jou geldt en zie meteen of dit werk bij je past.</p>
+        <div class="score"><span class="ring" id="scoreRing"><i id="scoreNum">0/6</i></span><span id="scoreTxt">Vink de eisen af die voor jou gelden</span></div>
+        <div><button class="btn btn-blue" id="eisenBtn" onclick="openWizard()">Solliciteer direct <span class="arr">&rarr;</span></button></div>
+      </div>
+      <div class="reveal reveal-d1">
+        <label class="req"><input type="checkbox"><span class="box"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3L11.5 4" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Rijbewijs B, minimaal 1 jaar</b><span>Je rijdt dagelijks tientallen auto's, dus routine achter het stuur is de basis.</span></div></label>
+        <label class="req"><input type="checkbox"><span class="box"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3L11.5 4" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Binnen 35 km van Amsterdam Westpoort</b><span>Bij een oproep moet je snel op de terminal kunnen staan.</span></div></label>
+        <label class="req"><input type="checkbox"><span class="box"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3L11.5 4" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Eigen vervoer</b><span>De terminal ligt buiten het bereik van het OV op vroege en late uren.</span></div></label>
+        <label class="req"><input type="checkbox"><span class="box"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3L11.5 4" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Vloeiend Nederlands</b><span>Veiligheidsinstructies en communicatie op de kade zijn in het Nederlands.</span></div></label>
+        <label class="req"><input type="checkbox"><span class="box"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3L11.5 4" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Fysiek fit</b><span>In en uit auto's stappen, trappen lopen, werken in weer en wind.</span></div></label>
+        <label class="req"><input type="checkbox"><span class="box"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5l3 3L11.5 4" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>24/7 flexibel inzetbaar</b><span>Geen 9-tot-5-mentaliteit. Schepen komen ook 's nachts en in het weekend binnen.</span></div></label>
+        <div class="extra"><b>Extra papieren?</b> Een heftruckcertificaat, VCA, rijbewijs C, D of E of een chauffeurspas is een streepje voor. Je geeft het aan in de sollicitatie.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VACATURES -->
+<section class="vac" id="vacatures">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="reveal">
+      <h2>Waar wij je voor zoeken</h2>
+      <p class="lead">Drie functies, allemaal op oproepbasis op de Waterland Terminal. Solliciteren gaat via dezelfde korte check.</p>
+    </div>
+    <div class="vac-grid">
+      <article class="vcard feat reveal">
+        <div class="vimg"><img src="veel_autos2.jpg" alt="Autoschip aan de kade" loading="lazy"></div>
+        <div class="inner">
+          <span class="chip">Meest gezocht</span>
+          <h3>Autochauffeur terminal</h3>
+          <p>Jij rijdt fabrieksnieuwe auto's van het autoschip naar het opstelterrein en andersom. Na de interne opleiding, betaald door QLS, ga je direct aan de slag.</p>
+          <ul>
+            <li>Rijbewijs B, minimaal 1 jaar</li>
+            <li>Oproepbasis, flexibele diensten</li>
+            <li>Interne opleiding, geen ervaring nodig</li>
+          </ul>
+          <button class="btn btn-blue" onclick="openWizard('Autochauffeur terminal')">Solliciteer <span class="arr">&rarr;</span></button>
+        </div>
+      </article>
+      <article class="vcard reveal reveal-d1">
+        <div class="inner">
+          <span class="chip">Met certificaat</span>
+          <h3>Heftruckchauffeur</h3>
+          <p>Laden en lossen met de heftruck op de terminal, en het bevoorraden van cruiseschepen die Amsterdam aandoen.</p>
+          <button class="btn btn-blue" onclick="openWizard('Heftruckchauffeur')">Solliciteer <span class="arr">&rarr;</span></button>
+        </div>
+      </article>
+      <article class="vcard reveal reveal-d2">
+        <div class="inner">
+          <span class="chip">Ook op oproep</span>
+          <h3>Aanpikker / hiker</h3>
+          <p>Auto's aanpikken voor de kraan en als hiker rijden voor het Koopman Car Terminal. Voor wie meer wil dan alleen rijden.</p>
+          <button class="btn btn-blue" onclick="openWizard('Aanpikker / hiker')">Solliciteer <span class="arr">&rarr;</span></button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- HOE -->
+<section class="hoe">
+  <div class="wrap">
+    <div class="kop reveal">
+      <h2>Geen brief. Geen gedoe. Vijf minuten.</h2>
+      <p class="lead">Je doorloopt een korte check op je telefoon en weet meteen of je in aanmerking komt.</p>
+    </div>
+    <div class="hoe-rail reveal">
+      <div class="hstep"><b>Beantwoord zes vragen</b><p>Ja of nee op de harde eisen. Je krijgt direct uitsluitsel, met uitleg als het niet past.</p></div>
+      <div class="hstep"><b>Vul je gegevens in</b><p>Naam, telefoonnummer, woonplaats en eventueel een korte motivatie. Meer niet.</p></div>
+      <div class="hstep"><b>Verstuur met je cv</b><p>Je sollicitatie gaat kant-en-klaar naar QLS. Je cv voeg je als bijlage toe.</p></div>
+      <div class="hstep"><b>Wij bellen jou</b><p>Past het? Dan plannen we een gesprek op de terminal en start je interne opleiding.</p></div>
+    </div>
+    <div class="onder reveal">
+      <button class="btn btn-blue" onclick="openWizard()">Solliciteer direct <span class="arr">&rarr;</span></button>
+      <small>Werkt gewoon op je telefoon.</small>
+    </div>
+  </div>
+</section>
+
+<!-- OVER -->
+<section class="over" id="over">
+  <div class="wrap">
+    <div class="over-grid">
+      <div class="reveal">
+        <h2>Zestien jaar zonder krassen maken.</h2>
+        <p class="lead">Quality Labour Supply B.V. laadt en lost sinds 2010 autoschepen op de Waterland Terminal. Iedereen die bij ons rijdt, doorloopt eerst de verplichte interne opleiding, opgezet met Nissan Carrier Europe en elk jaar aangescherpt.</p>
+        <p>Dat betaalt zich uit: QLS heeft het laagste schadepercentage van Europa. Daardoor groeide het werk uit naar heftruck- en aanpikwerkzaamheden, het bevoorraden van cruiseschepen en hikerwerk voor het Koopman Car Terminal.</p>
+      </div>
+      <div class="photo reveal reveal-d1">
+        <img src="veel_autos.jpg" alt="Strakke rijen nieuwe auto's op het opstelterrein" loading="lazy">
+        <div class="badge"><b>#1</b><span>Laagste schadepercentage van Europa</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KLANTEN -->
+<div class="klanten">
+  <div class="wrap">
+    <div class="banner reveal">
+      <div>
+        <h3>Werk uitbesteden op de terminal?</h3>
+        <p>Voor rederijen en terminals leveren wij deskundig personeel voor laden, lossen, heftruck- en aanpikwerk. Scherpe tarieven, 24/7 bereikbaar.</p>
+      </div>
+      <a class="btn btn-white" href="mailto:post@qualitylabour.nl?subject=Offerteaanvraag%20QLS">Vraag een offerte aan</a>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="reveal">
+        <h2>Kom eens langs, of bel gewoon.</h2>
+        <div class="c-list">
+          <div class="c-row">
+            <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 18s6-5.1 6-9.5A6 6 0 0 0 4 8.5C4 12.9 10 18 10 18z" stroke="#0B4EA2" stroke-width="1.7"/><circle cx="10" cy="8.5" r="2.2" stroke="#0B4EA2" stroke-width="1.7"/></svg></div>
+            <div><b>Kantoor</b><div class="v">Handelsweg 33, 1422 DW Uithoorn</div></div>
+          </div>
+          <div class="c-row">
+            <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 14l8-4 8 4M2 14v3h16v-3M2 14l2-8h12l2 8" stroke="#0B4EA2" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+            <div><b>Werkterrein</b><div class="v">Waterland Terminal<small>Elbaweg 10, 1044 AD Amsterdam Westpoort</small></div></div>
+          </div>
+          <div class="c-row">
+            <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 3h4l1.5 4L7 9a12 12 0 0 0 4 4l2-2.5 4 1.5v4a1.5 1.5 0 0 1-1.6 1.5C8.5 17 3 11.5 2.5 4.6A1.5 1.5 0 0 1 4 3z" stroke="#0B4EA2" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+            <div><b>Telefoon</b><div class="v"><a href="tel:+31631668992">+31 (0)6 31 668 992</a></div></div>
+          </div>
+          <div class="c-row">
+            <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2.5" y="4.5" width="15" height="11" rx="2" stroke="#0B4EA2" stroke-width="1.6"/><path d="M3.5 6l6.5 5 6.5-5" stroke="#0B4EA2" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+            <div><b>E-mail</b><div class="v"><a href="mailto:post@qualitylabour.nl">post@qualitylabour.nl</a></div></div>
+          </div>
+          <div class="c-row">
+            <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3.5" y="3.5" width="13" height="13" rx="2" stroke="#0B4EA2" stroke-width="1.6"/><path d="M7 10h6M7 7.5h6M7 12.5h4" stroke="#0B4EA2" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+            <div><b>KvK</b><div class="v">34372757</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-card reveal reveal-d1">
+        <h3>Klaar om te beginnen?</h3>
+        <p>De check duurt vijf minuten en je weet meteen waar je aan toe bent. Cv bij de hand? Dan kan hij direct mee.</p>
+        <button class="btn btn-blue" onclick="openWizard()">Solliciteer direct <span class="arr">&rarr;</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div class="flogo">QLS<i></i></div>
+      <p><b>Quality Labour Supply B.V.</b> &nbsp;|&nbsp; Laden en lossen van autoschepen, Waterland Terminal Amsterdam &nbsp;|&nbsp; KvK 34372757</p>
+      <p><a href="tel:+31631668992">+31 (0)6 31 668 992</a> &nbsp;|&nbsp; <a href="mailto:post@qualitylabour.nl">post@qualitylabour.nl</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- SOLLICITATIE WIZARD -->
+<div class="wizard-overlay" id="wizardOverlay" role="dialog" aria-modal="true" aria-labelledby="wzTitle">
+  <div class="wizard">
+    <div class="wz-top">
+      <div class="t"><i aria-hidden="true"></i><b id="wzTitle">Solliciteren bij QLS</b></div>
+      <button class="wz-close" onclick="closeWizard()" aria-label="Sluiten">&times;</button>
+    </div>
+    <div class="wz-progress"><i id="wzBar"></i></div>
+    <div class="wz-body" id="wzBody">
+
+      <!-- intro -->
+      <div class="wz-step active" data-step="intro">
+        <h3 id="wzFunctieTitel">Fijn dat je er bent.</h3>
+        <p class="sub">Zes korte vragen, je gegevens, klaar. Duurt vijf minuten en je weet meteen of je in aanmerking komt.</p>
+        <button class="btn btn-blue" style="width:100%" onclick="wzGo(0)">Start de vragen <span class="arr">&rarr;</span></button>
+      </div>
+
+      <!-- vragen -->
+      <div class="wz-step" data-step="vraag">
+        <div class="wz-count" id="wzVraagCount">Vraag 1 van 6</div>
+        <h3 id="wzVraagTekst"></h3>
+        <p class="sub" id="wzVraagSub"></p>
+        <div class="wz-choices">
+          <button onclick="wzAnswer(true)">Ja</button>
+          <button onclick="wzAnswer(false)">Nee</button>
+        </div>
+        <div class="wz-nav"><button class="wz-back" onclick="wzBack()">&larr; Terug</button><span></span></div>
+      </div>
+
+      <!-- stop -->
+      <div class="wz-step" data-step="stop">
+        <div class="wz-stop">
+          <b>Helaas, dit is een harde eis.</b>
+          <p id="wzStopUitleg"></p>
+        </div>
+        <p class="sub">Verkeerd geklikt? Dan kun je terug. Verandert je situatie later, dan ben je altijd welkom om het opnieuw te proberen.</p>
+        <div class="wz-nav">
+          <button class="wz-back" onclick="wzBack()">&larr; Ik klikte verkeerd</button>
+          <button class="btn btn-blue btn-sm" onclick="closeWizard()">Sluiten</button>
+        </div>
+      </div>
+
+      <!-- certificaten -->
+      <div class="wz-step" data-step="certs">
+        <div class="wz-count">Bijna klaar</div>
+        <h3>Heb je extra papieren?</h3>
+        <p class="sub">Niet verplicht, wel een streepje voor. Vink aan wat je hebt.</p>
+        <div class="wz-opts" id="wzCerts">
+          <label class="wz-opt"><input type="checkbox" value="Heftruckcertificaat">Heftruckcertificaat</label>
+          <label class="wz-opt"><input type="checkbox" value="VCA">VCA</label>
+          <label class="wz-opt"><input type="checkbox" value="Rijbewijs C, D of E">Rijbewijs C, D of E</label>
+          <label class="wz-opt"><input type="checkbox" value="Chauffeurspas">Chauffeurspas</label>
+        </div>
+        <div class="wz-nav">
+          <button class="wz-back" onclick="wzBack()">&larr; Terug</button>
+          <button class="btn btn-blue" onclick="wzToGegevens()">Verder</button>
+        </div>
+      </div>
+
+      <!-- gegevens -->
+      <div class="wz-step" data-step="gegevens">
+        <div class="wz-count">Laatste stap</div>
+        <h3>Wie mogen we bellen?</h3>
+        <p class="sub">Alleen het hoognodige. Je motivatie mag kort, of leeg.</p>
+        <div class="wz-fields">
+          <div class="wz-field" id="f-naam"><label for="wzNaam">Volledige naam</label><input id="wzNaam" type="text" autocomplete="name" placeholder="Bijv. Daan de Vries"><span class="err">Vul je naam in.</span></div>
+          <div class="wz-field" id="f-tel"><label for="wzTel">Telefoonnummer</label><input id="wzTel" type="tel" autocomplete="tel" inputmode="tel" placeholder="06 12 34 56 78"><span class="err">Vul een telefoonnummer in.</span></div>
+          <div class="wz-field" id="f-mail"><label for="wzMail">E-mailadres</label><input id="wzMail" type="email" autocomplete="email" placeholder="jij@voorbeeld.nl"><span class="err">Vul een geldig e-mailadres in.</span></div>
+          <div class="wz-field" id="f-plaats"><label for="wzPlaats">Woonplaats</label><input id="wzPlaats" type="text" autocomplete="address-level2" placeholder="Bijv. Zaandam"><span class="err">Vul je woonplaats in.</span></div>
+          <div class="wz-field full"><label for="wzMotivatie">Korte motivatie (optioneel)</label><textarea id="wzMotivatie" placeholder="Waarom lijkt dit werk je wat?"></textarea></div>
+        </div>
+        <div class="wz-nav">
+          <button class="wz-back" onclick="wzBack()">&larr; Terug</button>
+          <button class="btn btn-blue" onclick="wzToOverzicht()">Naar overzicht</button>
+        </div>
+      </div>
+
+      <!-- overzicht -->
+      <div class="wz-step" data-step="overzicht">
+        <div class="wz-count">Controleer en verstuur</div>
+        <h3>Klopt dit?</h3>
+        <p class="sub">Dan zetten we je sollicitatie klaar in je eigen mailprogramma. Vergeet je cv niet als bijlage.</p>
+        <div class="wz-summary" id="wzSummary"></div>
+        <div class="wz-nav">
+          <button class="wz-back" onclick="wzBack()">&larr; Aanpassen</button>
+          <button class="btn btn-blue" onclick="wzVerstuur()">Verstuur sollicitatie</button>
+        </div>
+      </div>
+
+      <!-- klaar -->
+      <div class="wz-step wz-done" data-step="klaar">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="28" fill="#0B4EA2"/><path d="M17 29l7.5 7.5L39 22" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Je mail staat klaar.</h3>
+        <p class="sub">Je mailprogramma is geopend met je complete sollicitatie. Voeg je cv toe als bijlage en druk op verzenden. Wij nemen daarna snel contact met je op.</p>
+        <p class="wz-mailnote">Geen mailvenster gezien? Stuur de sollicitatie dan zelf naar <a href="mailto:post@qualitylabour.nl" style="color:var(--blue);font-weight:600">post@qualitylabour.nl</a>.</p>
+        <div class="wz-nav"><span></span><button class="btn btn-blue" onclick="closeWizard()">Klaar</button></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/* ---------- nav ---------- */
+var nav = document.getElementById('nav');
+var hero = document.querySelector('.hero');
+if('IntersectionObserver' in window){
+  new IntersectionObserver(function(entries){
+    nav.classList.toggle('solid', !entries[0].isIntersecting);
+  },{rootMargin:'-90px 0px 0px 0px'}).observe(hero);
+}else{
+  nav.classList.add('solid');
+}
+function toggleMenu(){
+  var b=document.getElementById('burger'), m=document.getElementById('mobileMenu');
+  var open=m.classList.toggle('open');
+  b.classList.toggle('open',open);
+  b.setAttribute('aria-expanded',open);
+  if(open){nav.classList.add('solid');}
+}
+
+/* ---------- reveal on scroll ---------- */
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)){
+    els.forEach(function(el){el.classList.add('in')});return;
+  }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:.08});
+  els.forEach(function(el){io.observe(el)});
+})();
+
+/* ---------- merken carousel: fallback als een logo niet laadt ---------- */
+document.querySelectorAll('#track img').forEach(function(img){
+  img.addEventListener('error',function(){
+    var s=document.createElement('span');
+    s.className='wordmark';
+    s.textContent=img.closest('.tile').querySelector('b').textContent;
+    img.closest('.tile').querySelector('b').remove();
+    img.replaceWith(s);
+  });
+});
+
+/* ---------- eisen checklist ---------- */
+(function(){
+  var reqs=document.querySelectorAll('.req');
+  var ring=document.getElementById('scoreRing');
+  var num=document.getElementById('scoreNum');
+  var txt=document.getElementById('scoreTxt');
+  function update(){
+    var n=0;
+    reqs.forEach(function(r){
+      var c=r.querySelector('input').checked;
+      r.classList.toggle('checked',c);
+      if(c)n++;
+    });
+    num.textContent=n+'/6';
+    ring.style.setProperty('--p',Math.round(n/6*100));
+    txt.textContent = n===6 ? 'Alle zes? Dan willen we je spreken!' : (n===0 ? 'Vink de eisen af die voor jou gelden' : 'Goed bezig, ga zo door');
+  }
+  reqs.forEach(function(r){r.querySelector('input').addEventListener('change',update);});
+  update();
+})();
+
+/* ---------- sollicitatie wizard ---------- */
+var VRAGEN=[
+  {t:"Heb je minimaal 1 jaar je rijbewijs B?", s:"Je rijdt dagelijks tientallen fabrieksnieuwe auto's. Rij-ervaring is daarom een harde eis.",
+   stop:"Voor dit werk moet je minimaal een jaar je rijbewijs B hebben. Zodra dat zo is, solliciteer je gewoon opnieuw."},
+  {t:"Woon je binnen 35 km van Amsterdam Westpoort?", s:"Bij een oproep moet je snel op de Waterland Terminal kunnen staan.",
+   stop:"We werken met oproepdiensten, dus je moet binnen een straal van 35 km van Amsterdam Westpoort wonen."},
+  {t:"Heb je eigen vervoer?", s:"De terminal is 's nachts en in het weekend niet met het OV bereikbaar.",
+   stop:"Zonder eigen vervoer kun je de terminal op de vroege en late diensten niet bereiken. Eigen vervoer is daarom verplicht."},
+  {t:"Spreek je vloeiend Nederlands?", s:"Veiligheidsinstructies en communicatie op de kade zijn in het Nederlands.",
+   stop:"Voor de veiligheid op de terminal is vloeiend Nederlands een harde eis."},
+  {t:"Ben je fysiek fit, zonder lichamelijke klachten?", s:"Je stapt honderden keren per dienst in en uit, en werkt in weer en wind.",
+   stop:"Dit is fysiek werk. Zonder een goede lichamelijke conditie kunnen we je helaas niet inzetten."},
+  {t:"Kun je flexibel werken, ook 's nachts en in het weekend?", s:"Schepen houden geen kantoortijden aan. Wij ook niet.",
+   stop:"QLS draait op 24/7-inzetbaarheid en een flexibele instelling. Vaste kantoortijden kunnen we niet bieden."}
+];
+var wz={vraag:0, antwoorden:[], functie:""};
+var overlay=document.getElementById('wizardOverlay');
+var lastFocus=null;
+
+function stappen(){return document.querySelectorAll('.wz-step');}
+function toon(naam){
+  stappen().forEach(function(s){s.classList.toggle('active',s.dataset.step===naam);});
+  document.getElementById('wzBody').scrollTop=0;
+}
+function progress(p){document.getElementById('wzBar').style.width=p+'%';}
+
+function openWizard(functie){
+  wz={vraag:0, antwoorden:[], functie:functie||""};
+  lastFocus=document.activeElement;
+  document.getElementById('wzFunctieTitel').textContent = functie ? ('Solliciteren als '+functie.toLowerCase()+'.') : 'Fijn dat je er bent.';
+  document.querySelectorAll('#wzCerts input').forEach(function(c){c.checked=false;c.closest('.wz-opt').classList.remove('checked');});
+  ['wzNaam','wzTel','wzMail','wzPlaats','wzMotivatie'].forEach(function(id){document.getElementById(id).value='';});
+  document.querySelectorAll('.wz-field.invalid').forEach(function(f){f.classList.remove('invalid');});
+  toon('intro');progress(0);
+  overlay.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeWizard(){
+  overlay.classList.remove('open');
+  document.body.style.overflow='';
+  if(lastFocus&&lastFocus.focus)lastFocus.focus();
+}
+overlay.addEventListener('click',function(e){if(e.target===overlay)closeWizard();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&overlay.classList.contains('open'))closeWizard();});
+
+function wzGo(i){
+  wz.vraag=i;
+  var v=VRAGEN[i];
+  document.getElementById('wzVraagCount').textContent='Vraag '+(i+1)+' van '+VRAGEN.length;
+  document.getElementById('wzVraagTekst').textContent=v.t;
+  document.getElementById('wzVraagSub').textContent=v.s;
+  toon('vraag');
+  progress(Math.round((i/(VRAGEN.length+2))*100));
+}
+function wzAnswer(ja){
+  wz.antwoorden[wz.vraag]=ja;
+  if(!ja){
+    document.getElementById('wzStopUitleg').textContent=VRAGEN[wz.vraag].stop;
+    toon('stop');
+    return;
+  }
+  if(wz.vraag<VRAGEN.length-1){wzGo(wz.vraag+1);}
+  else{toon('certs');progress(Math.round((VRAGEN.length/(VRAGEN.length+2))*100));}
+}
+function wzBack(){
+  var actief=document.querySelector('.wz-step.active').dataset.step;
+  if(actief==='stop'){toon('vraag');return;}
+  if(actief==='vraag'){
+    if(wz.vraag===0){toon('intro');progress(0);}
+    else{wzGo(wz.vraag-1);}
+    return;
+  }
+  if(actief==='certs'){wzGo(VRAGEN.length-1);return;}
+  if(actief==='gegevens'){toon('certs');return;}
+  if(actief==='overzicht'){toon('gegevens');return;}
+}
+document.querySelectorAll('#wzCerts input').forEach(function(c){
+  c.addEventListener('change',function(){c.closest('.wz-opt').classList.toggle('checked',c.checked);});
+});
+function wzToGegevens(){toon('gegevens');progress(Math.round(((VRAGEN.length+1)/(VRAGEN.length+2))*100));}
+
+function veld(id){return document.getElementById(id).value.trim();}
+function valideer(){
+  var ok=true;
+  var checks=[
+    ['f-naam','wzNaam',function(v){return v.length>1;}],
+    ['f-tel','wzTel',function(v){return v.replace(/\D/g,'').length>=9;}],
+    ['f-mail','wzMail',function(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}],
+    ['f-plaats','wzPlaats',function(v){return v.length>1;}]
+  ];
+  checks.forEach(function(c){
+    var goed=c[2](veld(c[1]));
+    document.getElementById(c[0]).classList.toggle('invalid',!goed);
+    if(!goed)ok=false;
+  });
+  return ok;
+}
+function certsGekozen(){
+  var out=[];
+  document.querySelectorAll('#wzCerts input:checked').forEach(function(c){out.push(c.value);});
+  return out;
+}
+function wzToOverzicht(){
+  if(!valideer())return;
+  var certs=certsGekozen();
+  var rows=[
+    ['Functie', wz.functie||'Autochauffeur terminal'],
+    ['Naam', veld('wzNaam')],
+    ['Telefoon', veld('wzTel')],
+    ['E-mail', veld('wzMail')],
+    ['Woonplaats', veld('wzPlaats')],
+    ['Extra papieren', certs.length?certs.join(', '):'Geen'],
+    ['Harde eisen', 'Voldoet aan alle 6 de eisen']
+  ];
+  var mot=veld('wzMotivatie');
+  if(mot)rows.push(['Motivatie', mot]);
+  document.getElementById('wzSummary').innerHTML=rows.map(function(r){
+    return '<div class="srow"><span class="sk">'+r[0]+'</span><span class="sv">'+r[1].replace(/</g,'&lt;')+'</span></div>';
+  }).join('');
+  toon('overzicht');progress(96);
+}
+function wzVerstuur(){
+  var certs=certsGekozen();
+  var functie=wz.functie||'Autochauffeur terminal';
+  var body=
+    'Beste QLS,\n\n'+
+    'Via de website solliciteer ik op de functie: '+functie+'.\n\n'+
+    'Mijn gegevens:\n'+
+    '- Naam: '+veld('wzNaam')+'\n'+
+    '- Telefoon: '+veld('wzTel')+'\n'+
+    '- E-mail: '+veld('wzMail')+'\n'+
+    '- Woonplaats: '+veld('wzPlaats')+'\n\n'+
+    'Harde eisen: ik voldoe aan alle zes de eisen (rijbewijs B minimaal 1 jaar, binnen 35 km van Westpoort, eigen vervoer, vloeiend Nederlands, fysiek fit, 24/7 flexibel inzetbaar).\n'+
+    'Extra papieren: '+(certs.length?certs.join(', '):'geen')+'.\n\n'+
+    (veld('wzMotivatie')?('Motivatie:\n'+veld('wzMotivatie')+'\n\n'):'')+
+    'Mijn cv stuur ik mee als bijlage.\n\n'+
+    'Met vriendelijke groet,\n'+veld('wzNaam');
+  var mailto='mailto:post@qualitylabour.nl'+
+    '?subject='+encodeURIComponent('Sollicitatie '+functie+' - '+veld('wzNaam'))+
+    '&body='+encodeURIComponent(body);
+  window.location.href=mailto;
+  toon('klaar');progress(100);
+}
+</script>
+</body>
+</html>
